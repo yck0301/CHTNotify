@@ -23,7 +23,7 @@ public class MemberController : ControllerBase
     /// [管理者功能] 增加成員
     /// </summary>
     /// <returns></returns>
-    [HttpPatch("editor")]
+    [HttpPost("editor")]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public void AddMember(int memberId)
