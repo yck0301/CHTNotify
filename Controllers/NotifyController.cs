@@ -9,7 +9,7 @@ namespace CHTNotify.Controllers;
 
 public class NotifyController : ControllerBase
 {
-    
+
     HttpClient httpClient = new HttpClient();
 
     /// <summary>
@@ -19,16 +19,25 @@ public class NotifyController : ControllerBase
     /// <returns></returns>
     [HttpPost("line")]
     [Consumes(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<HttpResponseMessage> PostLineNotify(LineNotify lineNotify)
+    [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DDResponse<string>))]
+    public async Task<IActionResult> PostLineNotify(LineNotify lineNotify)
     {
-        httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
-        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", lineNotify.token);
-        var content = new Dictionary<string, string>();
-        content.Add("message", lineNotify.message);
-        HttpResponseMessage response = await httpClient.PostAsync("https://notify-api.line.me/api/notify", new FormUrlEncodedContent(content));
-        
-        return response;
+        try
+        {
+            httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", lineNotify.token);
+            var content = new Dictionary<string, string>();
+            content.Add("message", lineNotify.message);
+            HttpResponseMessage response = await httpClient.PostAsync("https://notify-api.line.me/api/notify", new FormUrlEncodedContent(content));
+
+            return Ok();
+        }
+        catch(Exception)
+        {
+            return BadRequest(new DDResponse<string>(-1, "BadRequest"));
+        }
     }
 
     /// <summary>
