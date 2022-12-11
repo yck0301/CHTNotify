@@ -16,22 +16,22 @@ public class GroupController : ControllerBase
     [HttpGet("list")]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DDResponse<List<Group>>))]
-    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(DDResponse<string>))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DDResponse<string>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult ListGroups(string sign)
     {
         try
         {
             if(sign == "")
             {
-                return NotFound(new DDResponse<string>(-1, "NotFound"));
+                return NotFound();
             }
             DDResponse<List<Group>> resp = new DDResponse<List<Group>>(0, new List<Group>());
             return Ok(resp);
         }
         catch (Exception)
         {
-            return BadRequest(new DDResponse<string>(-1, "BadRequest"));
+            return BadRequest();
         }
 
     }
@@ -44,12 +44,12 @@ public class GroupController : ControllerBase
     [Produces("application/json")]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DDResponse<string>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult AddGroup(Group? group)
     {
         if(group == null)
         {
-            return BadRequest(new DDResponse<string>(-1, "BadRequest")); 
+            return BadRequest(); 
         }
         return Ok();
     }
@@ -61,12 +61,12 @@ public class GroupController : ControllerBase
     [HttpPatch("panel/{groupId}")]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DDResponse<string>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult EditGroup(Group? group)
     {
         if(group == null)
         {
-            return BadRequest(new DDResponse<string>(-1, "BadRequest")); 
+            return BadRequest(); 
         }
         return Ok();
     }
@@ -77,7 +77,7 @@ public class GroupController : ControllerBase
     /// <returns></returns>
     [HttpDelete("panel/{groupId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DDResponse<string>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult DeleteGroup()
     {
         try
@@ -86,7 +86,7 @@ public class GroupController : ControllerBase
         }
         catch(Exception)
         {
-            return BadRequest(new DDResponse<string>(-1, "BadRequest")); 
+            return BadRequest(); 
         }
     }
 }

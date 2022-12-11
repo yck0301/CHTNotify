@@ -21,7 +21,7 @@ public class NotifyController : ControllerBase
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DDResponse<string>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> PostLineNotify(LineNotify lineNotify)
     {
         try
@@ -36,7 +36,7 @@ public class NotifyController : ControllerBase
         }
         catch(Exception)
         {
-            return BadRequest(new DDResponse<string>(-1, "BadRequest"));
+            return BadRequest();
         }
     }
 

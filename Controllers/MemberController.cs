@@ -16,22 +16,22 @@ public class MemberController : ControllerBase
     [HttpGet("list")]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DDResponse<List<Member>>))]
-    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(DDResponse<string>))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DDResponse<string>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult ListMembers(string sign)
     {
         try
         {
             if(sign == "")
             {
-                return NotFound(new DDResponse<string>(-1, "NotFound"));
+                return NotFound();
             }
             DDResponse<List<Member>> resp = new DDResponse<List<Member>>(0, new List<Member>());
             return Ok(resp);
         }
         catch (Exception)
         {
-            return BadRequest(new DDResponse<string>(-1, "BadRequest"));
+            return BadRequest();
         }
 
     }
@@ -44,12 +44,12 @@ public class MemberController : ControllerBase
     [Produces("application/json")]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DDResponse<string>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult AddMember(Member? member)
     {
         if(member == null)
         {
-            return BadRequest(new DDResponse<string>(-1, "BadRequest")); 
+            return BadRequest(); 
         }
         return Ok();
     }
@@ -61,12 +61,12 @@ public class MemberController : ControllerBase
     [HttpPatch("panel/{memberId}")]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DDResponse<string>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult EditMember(Member? member)
     {
         if(member == null)
         {
-            return BadRequest(new DDResponse<string>(-1, "BadRequest")); 
+            return BadRequest(); 
         }
         return Ok();
     }
@@ -77,7 +77,7 @@ public class MemberController : ControllerBase
     /// <returns></returns>
     [HttpDelete("panel/{memberId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(DDResponse<string>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult DeleteMember()
     {
         try
@@ -86,7 +86,7 @@ public class MemberController : ControllerBase
         }
         catch(Exception)
         {
-            return BadRequest(new DDResponse<string>(-1, "BadRequest")); 
+            return BadRequest(); 
         }
     }
 }
