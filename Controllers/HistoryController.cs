@@ -12,7 +12,7 @@ public class HistoryController : ControllerBase
     /// 取得發送歷史
     /// </summary>
     /// <returns></returns>
-    [HttpGet("list")]
+    [HttpGet("list/{sign}")]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DDResponse<List<History>>))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

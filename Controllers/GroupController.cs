@@ -13,7 +13,7 @@ public class GroupController : ControllerBase
     /// 取得群組列表
     /// </summary>
     /// <returns></returns>
-    [HttpGet("list")]
+    [HttpGet("list/{sign}")]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DDResponse<List<Group>>))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -40,12 +40,12 @@ public class GroupController : ControllerBase
     /// [管理者功能] 新增群組
     /// </summary>
     /// <returns></returns>
-    [HttpPost("panel")]
+    [HttpPost("panel/{sign}")]
     [Produces("application/json")]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public IActionResult AddGroup(Group? group)
+    public IActionResult AddGroup(string sign, Group? group)
     {
         if(group == null)
         {
@@ -58,11 +58,11 @@ public class GroupController : ControllerBase
     /// [管理者功能] 修改群組
     /// </summary>
     /// <returns></returns>
-    [HttpPatch("panel/{groupId}")]
+    [HttpPatch("panel/{sign}/{groupId}")]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public IActionResult EditGroup(Group? group)
+    public IActionResult EditGroup(string sign, string groupId, Group? group)
     {
         if(group == null)
         {
@@ -75,10 +75,10 @@ public class GroupController : ControllerBase
     /// [管理者功能] 刪除群組
     /// </summary>
     /// <returns></returns>
-    [HttpDelete("panel/{groupId}")]
+    [HttpDelete("panel/{sign}/{groupId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public IActionResult DeleteGroup()
+    public IActionResult DeleteGroup(string sign, string groupId)
     {
         try
         {
