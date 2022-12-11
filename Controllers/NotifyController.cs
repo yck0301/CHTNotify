@@ -15,21 +15,23 @@ public class NotifyController : ControllerBase
     /// <summary>
     /// 發送: Line Notify
     /// </summary>
-    /// <param name="lineNotify">Line 的 token 與你要打的訊息</param>
+    /// <param name="sign">使用者簽章</param>
+    /// <param name="groupId">群組編號</param>
+    /// <param name="commonNotify">token 與 你要打的訊息</param>
     /// <returns></returns>
-    [HttpPost("line")]
+    [HttpPost("line/{sign}")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> PostLineNotify(LineNotify lineNotify)
+    public async Task<IActionResult> PostLineNotify(string sign, string groupId, CommonNotify commonNotify)
     {
         try
         {
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", lineNotify.token);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", commonNotify.token);
             var content = new Dictionary<string, string>();
-            content.Add("message", lineNotify.message);
+            content.Add("message", commonNotify.message);
             HttpResponseMessage response = await httpClient.PostAsync("https://notify-api.line.me/api/notify", new FormUrlEncodedContent(content));
 
             return Ok();
@@ -41,46 +43,98 @@ public class NotifyController : ControllerBase
     }
 
     /// <summary>
-    /// 發送: Teams
+    /// 發送: Teams Notify
     /// </summary>
+    /// <param name="sign">使用者簽章</param>
+    /// <param name="groupId">群組編號</param>
+    /// <param name="commonNotify">token 與 你要打的訊息</param>
     /// <returns></returns>
-    [HttpPost("teams")]
+    [HttpPost("teams/{sign}")]
     [Consumes(MediaTypeNames.Application.Json)]
+    [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public void PostTeamsNotify()
+    public IActionResult PostTeamsNotify(string sign, string groupId, CommonNotify commonNotify)
     {
+        try
+        {
+            return Ok();
+        }
+        catch(Exception)
+        {
+            return BadRequest();
+        }
     }
 
     /// <summary>
     /// 發送: 簡訊
     /// </summary>
+    /// <param name="sign">使用者簽章</param>
+    /// <param name="groupId">群組編號</param>
+    /// <param name="commonNotify">token 與 你要打的訊息</param>
     /// <returns></returns>
-    [HttpPost("sms")]
+    [HttpPost("sms/{sign}")]
     [Consumes(MediaTypeNames.Application.Json)]
+    [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public void PostSMSNotify()
+    public IActionResult PostSMSNotify(string sign, string groupId, CommonNotify commonNotify)
     {
+        try
+        {
+            return Ok();
+        }
+        catch(Exception)
+        {
+            return BadRequest();
+        }
     }
 
     /// <summary>
     /// 發送: Email
     /// </summary>
+    /// <param name="sign">使用者簽章</param>
+    /// <param name="groupId">群組編號</param>
+    /// <param name="commonNotify">token 與 你要打的訊息</param>
     /// <returns></returns>
-    [HttpPost("email")]
+    [HttpPost("email/{sign}")]
     [Consumes(MediaTypeNames.Application.Json)]
+    [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public void PostEmailNotify()
+    public IActionResult PostEmailNotify(string sign, string groupId, CommonNotify commonNotify)
     {
+        try
+        {
+            return Ok();
+        }
+        catch(Exception)
+        {
+            return BadRequest();
+        }
     }
 
     /// <summary>
     /// 發送: 客製化平台
     /// </summary>
+    /// <param name="sign">使用者簽章</param>
+    /// <param name="groupId">群組編號</param>
+    /// <param name="commonNotify">token 與 你要打的訊息</param>
     /// <returns></returns>
-    [HttpPost("someplace")]
+    [HttpPost("someplace/{sign}")]
     [Consumes(MediaTypeNames.Application.Json)]
+    [Produces("application/json")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public void PostSomeplaceNotify()
+    public IActionResult PostSomeplaceNotify(string sign, string groupId, CommonNotify commonNotify)
     {
+        try
+        {
+            return Ok();
+        }
+        catch(Exception)
+        {
+            return BadRequest();
+        }
     }
 }

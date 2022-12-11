@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 namespace CHTNotify;
 
-public class LineNotify
+public class CommonNotify
 {
   /// <summary>
   /// Line的token
