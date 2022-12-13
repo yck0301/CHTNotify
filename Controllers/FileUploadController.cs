@@ -30,7 +30,7 @@ public class FileUploadController : ControllerBase
   [HttpPost]
   [Consumes(MediaTypeNames.Application.Json)]
   [Produces("application/json")]
-  [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OkResponse))]
+  [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileResponse))]
   [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
   public async Task<IActionResult> UploadLargeFile()
   {
@@ -73,7 +73,7 @@ public class FileUploadController : ControllerBase
           await section.Body.CopyToAsync(targetStream);
         }
 
-        return Ok(new OkResponse());
+        return Ok(new FileResponse());
       }
 
       section = await reader.ReadNextSectionAsync();

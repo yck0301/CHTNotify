@@ -1,0 +1,1174 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "要你處理",
+    "description": "要你處理 - 系統監控的好幫手，提供API讓你發送告警一次滿足，告警滴滴叫，叫好叫滿，種類繁多任君挑選。(Line, Teams, e-mail, SMS, 客製化系統)",
+    "version": "v1"
+  },
+  "paths": {
+    "/v1/FileUpload": {
+      "post": {
+        "tags": [
+          "FileUpload"
+        ],
+        "summary": "上傳圖檔",
+        "responses": {
+          "200": {
+            "description": "發送成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FileResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "發送失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/History/list/{sign}": {
+      "get": {
+        "tags": [
+          "History"
+        ],
+        "summary": "取得發送歷史",
+        "parameters": [
+          {
+            "name": "sign",
+            "in": "path",
+            "description": "使用者簽章",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "取得歷史成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HistoryListDDResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "找不到你的歷史",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "取得歷史失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Member/list/{sign}/{groupId}": {
+      "get": {
+        "tags": [
+          "Member"
+        ],
+        "summary": "取得成員列表",
+        "parameters": [
+          {
+            "name": "sign",
+            "in": "path",
+            "description": "使用者簽章",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "群組ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "取得成員列表成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemberListDDResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "找不到成員列表",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "取得成員列表失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Member/panel/{sign}/{groupId}": {
+      "post": {
+        "tags": [
+          "Member"
+        ],
+        "summary": "[管理者功能] 新增成員",
+        "parameters": [
+          {
+            "name": "sign",
+            "in": "path",
+            "description": "使用者簽章",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "群組ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "成員資料",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Member"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "新增成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "新增失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Member/panel/{sign}/{groupId}/{memberId}": {
+      "patch": {
+        "tags": [
+          "Member"
+        ],
+        "summary": "[管理者功能] 修改成員",
+        "parameters": [
+          {
+            "name": "sign",
+            "in": "path",
+            "description": "使用者簽章",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "要修改的群組ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "memberId",
+            "in": "path",
+            "description": "要修改的成員資料",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "要修改的成員資料",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Member"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "修改成功",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "修改失敗",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Member"
+        ],
+        "summary": "[管理者功能] 刪除成員",
+        "parameters": [
+          {
+            "name": "sign",
+            "in": "path",
+            "description": "使用者簽章",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "要刪除的群組ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "memberId",
+            "in": "path",
+            "description": "要刪除的成員ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "刪除成功",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "刪除失敗",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/MemberGroup/list/{sign}": {
+      "get": {
+        "tags": [
+          "MemberGroup"
+        ],
+        "summary": "取得群組列表",
+        "parameters": [
+          {
+            "name": "sign",
+            "in": "path",
+            "description": "使用者簽章",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "群組列表",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupListDDResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/MemberGroup/panel/{sign}": {
+      "post": {
+        "tags": [
+          "MemberGroup"
+        ],
+        "summary": "[管理者功能] 新增群組",
+        "parameters": [
+          {
+            "name": "sign",
+            "in": "path",
+            "description": "使用者簽章",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "新增的群組",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Group"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "新增成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "新增失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/MemberGroup/panel/{sign}/{groupId}": {
+      "patch": {
+        "tags": [
+          "MemberGroup"
+        ],
+        "summary": "[管理者功能] 修改群組",
+        "parameters": [
+          {
+            "name": "sign",
+            "in": "path",
+            "description": "使用者簽章",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "要修改的群組ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "要修改的群組資料",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Group"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "修改成功",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "修改失敗",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "MemberGroup"
+        ],
+        "summary": "[管理者功能] 刪除群組",
+        "parameters": [
+          {
+            "name": "sign",
+            "in": "path",
+            "description": "使用者簽章",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "path",
+            "description": "要刪除的群組ID",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "刪除成功",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "刪除失敗",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Notify/line/{sign}": {
+      "post": {
+        "tags": [
+          "Notify"
+        ],
+        "summary": "發送: Line Notify",
+        "parameters": [
+          {
+            "name": "sign",
+            "in": "path",
+            "description": "使用者簽章",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "description": "群組編號",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "token 與 你要打的訊息",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommonNotify"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "發送成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "發送失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Notify/teams/{sign}": {
+      "post": {
+        "tags": [
+          "Notify"
+        ],
+        "summary": "發送: Teams Notify",
+        "parameters": [
+          {
+            "name": "sign",
+            "in": "path",
+            "description": "使用者簽章",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "description": "群組編號",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "token 與 你要打的訊息",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommonNotify"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "發送成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "發送失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Notify/sms/{sign}": {
+      "post": {
+        "tags": [
+          "Notify"
+        ],
+        "summary": "發送: 簡訊",
+        "parameters": [
+          {
+            "name": "sign",
+            "in": "path",
+            "description": "使用者簽章",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "description": "群組編號",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "發送內文",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SmsNotify"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "發送成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "發送失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Notify/email/{sign}": {
+      "post": {
+        "tags": [
+          "Notify"
+        ],
+        "summary": "發送: Email",
+        "parameters": [
+          {
+            "name": "sign",
+            "in": "path",
+            "description": "使用者簽章",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "description": "群組編號",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "信件標題、內文與圖檔",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MailNotify"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "發送成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "發送失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/Notify/someplace/{sign}": {
+      "post": {
+        "tags": [
+          "Notify"
+        ],
+        "summary": "發送: 客製化平台",
+        "parameters": [
+          {
+            "name": "sign",
+            "in": "path",
+            "description": "使用者簽章",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "groupId",
+            "in": "query",
+            "description": "群組編號",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "token 與 你要打的訊息",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CommonNotify"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "發送成功",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "發送失敗",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CommonNotify": {
+        "required": [
+          "message",
+          "token"
+        ],
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "Line的token",
+            "example": "7533967"
+          },
+          "message": {
+            "type": "string",
+            "description": "你要打的訊息",
+            "example": "你的電話在我心裡響個不停, 好想拿起電話再說聲我愛你"
+          },
+          "filePath": {
+            "type": "string",
+            "description": "上傳的圖檔路徑",
+            "nullable": true,
+            "example": "resource://file_path"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "errorCode": {
+            "type": "integer",
+            "description": "錯誤碼",
+            "format": "int32",
+            "example": 7533967
+          },
+          "errorMessage": {
+            "type": "string",
+            "description": "錯誤訊息",
+            "nullable": true,
+            "example": "內內!錯了啦!"
+          }
+        },
+        "additionalProperties": false
+      },
+      "FileResponse": {
+        "type": "object",
+        "properties": {
+          "returnCode": {
+            "type": "integer",
+            "description": "返回碼: 0表成功, 非0失敗",
+            "format": "int32",
+            "example": 0
+          },
+          "filePath": {
+            "type": "string",
+            "description": "檔案路徑",
+            "nullable": true,
+            "example": "resouce://file_path"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Group": {
+        "type": "object",
+        "properties": {
+          "groupId": {
+            "type": "string",
+            "description": "群組ID",
+            "nullable": true,
+            "example": "3345678"
+          },
+          "groupName": {
+            "type": "string",
+            "description": "群組名稱",
+            "nullable": true,
+            "example": "木葉忍者村"
+          },
+          "memberList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Member"
+            },
+            "description": "成員列表",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GroupListDDResponse": {
+        "type": "object",
+        "properties": {
+          "returnCode": {
+            "type": "integer",
+            "description": "返回碼, 0成功, 非0失敗",
+            "format": "int32",
+            "example": 0
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Group"
+            },
+            "description": "資料",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "History": {
+        "type": "object",
+        "properties": {
+          "timestamp": {
+            "type": "string",
+            "description": "歷史告警發送時間",
+            "nullable": true,
+            "example": "2022-12-12"
+          },
+          "sign": {
+            "type": "string",
+            "description": "歷史告警發送者簽章",
+            "nullable": true,
+            "example": "0806449"
+          },
+          "content": {
+            "type": "string",
+            "description": "歷史告警內文",
+            "nullable": true,
+            "example": "霹靂星球爆炸了, 霹靂貓乘太空船, 逃出來, 逃出來"
+          }
+        },
+        "additionalProperties": false
+      },
+      "HistoryListDDResponse": {
+        "type": "object",
+        "properties": {
+          "returnCode": {
+            "type": "integer",
+            "description": "返回碼, 0成功, 非0失敗",
+            "format": "int32",
+            "example": 0
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/History"
+            },
+            "description": "資料",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MailNotify": {
+        "required": [
+          "content",
+          "subject"
+        ],
+        "type": "object",
+        "properties": {
+          "subject": {
+            "type": "string",
+            "description": "信件主旨",
+            "example": "恭喜你!你是本產品第1,000,000個用戶!"
+          },
+          "content": {
+            "type": "string",
+            "description": "信件內文",
+            "example": "恭喜!你獲得信義區總價20億豪宅乙座!但須請您先匯回10%稅金, 共2億元"
+          },
+          "filePath": {
+            "type": "string",
+            "description": "上傳的圖檔路徑",
+            "nullable": true,
+            "example": "resource://file_path"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Member": {
+        "type": "object",
+        "properties": {
+          "memberId": {
+            "type": "string",
+            "description": "成員ID",
+            "nullable": true,
+            "example": "0806449"
+          },
+          "memberName": {
+            "type": "string",
+            "description": "成員名稱",
+            "nullable": true,
+            "example": "宇智波佐助"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MemberListDDResponse": {
+        "type": "object",
+        "properties": {
+          "returnCode": {
+            "type": "integer",
+            "description": "返回碼, 0成功, 非0失敗",
+            "format": "int32",
+            "example": 0
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Member"
+            },
+            "description": "資料",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OkResponse": {
+        "type": "object",
+        "properties": {
+          "okCode": {
+            "type": "integer",
+            "description": "OK碼",
+            "format": "int32",
+            "example": 0
+          },
+          "okMessage": {
+            "type": "string",
+            "description": "Ok訊息",
+            "nullable": true,
+            "example": "一些關於Ok的事情"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SmsNotify": {
+        "required": [
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "你要打的訊息",
+            "example": "你的電話在我心裡響個不停, 好想拿起電話再說聲我愛你"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
