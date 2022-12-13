@@ -16,4 +16,10 @@ public class CommonNotify
   /// <example>你的電話在我心裡響個不停, 好想拿起電話再說聲我愛你</example>
   [Required]
   public string message { get; set; } = string.Empty;
+
+  /// <summary>
+  /// 上傳的圖檔路徑
+  /// </summary>
+  /// <example>resource://file_path</example>
+  public string filePath { get; set; } = string.Empty;
 }

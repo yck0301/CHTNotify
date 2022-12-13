@@ -73,7 +73,7 @@ public class NotifyController : ControllerBase
     /// </summary>
     /// <param name="sign">使用者簽章</param>
     /// <param name="groupId">群組編號</param>
-    /// <param name="commonNotify">token 與 你要打的訊息</param>
+    /// <param name="smsNotify">發送內文</param>
     /// <response code="200">發送成功</response>
     /// <response code="400">發送失敗</response>
     [HttpPost("sms/{sign}")]
@@ -81,7 +81,7 @@ public class NotifyController : ControllerBase
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OkResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
-    public IActionResult PostSMSNotify(string sign, string groupId, CommonNotify commonNotify)
+    public IActionResult PostSMSNotify(string sign, string groupId, SmsNotify smsNotify)
     {
         try
         {
@@ -98,7 +98,7 @@ public class NotifyController : ControllerBase
     /// </summary>
     /// <param name="sign">使用者簽章</param>
     /// <param name="groupId">群組編號</param>
-    /// <param name="commonNotify">token 與 你要打的訊息</param>
+    /// <param name="mailNotify">信件標題、內文與圖檔</param>
     /// <response code="200">發送成功</response>
     /// <response code="400">發送失敗</response>
     [HttpPost("email/{sign}")]
@@ -106,7 +106,7 @@ public class NotifyController : ControllerBase
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OkResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
-    public IActionResult PostEmailNotify(string sign, string groupId, CommonNotify commonNotify)
+    public IActionResult PostEmailNotify(string sign, string groupId, MailNotify mailNotify)
     {
         try
         {
