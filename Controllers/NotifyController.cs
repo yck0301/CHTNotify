@@ -18,7 +18,8 @@ public class NotifyController : ControllerBase
     /// <param name="sign">使用者簽章</param>
     /// <param name="groupId">群組編號</param>
     /// <param name="commonNotify">token 與 你要打的訊息</param>
-    /// <returns></returns>
+    /// <response code="200">發送成功</response>
+    /// <response code="400">發送失敗</response>
     [HttpPost("line/{sign}")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces("application/json")]
@@ -48,7 +49,8 @@ public class NotifyController : ControllerBase
     /// <param name="sign">使用者簽章</param>
     /// <param name="groupId">群組編號</param>
     /// <param name="commonNotify">token 與 你要打的訊息</param>
-    /// <returns></returns>
+    /// <response code="200">發送成功</response>
+    /// <response code="400">發送失敗</response>
     [HttpPost("teams/{sign}")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces("application/json")]
@@ -72,7 +74,8 @@ public class NotifyController : ControllerBase
     /// <param name="sign">使用者簽章</param>
     /// <param name="groupId">群組編號</param>
     /// <param name="commonNotify">token 與 你要打的訊息</param>
-    /// <returns></returns>
+    /// <response code="200">發送成功</response>
+    /// <response code="400">發送失敗</response>
     [HttpPost("sms/{sign}")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces("application/json")]
@@ -96,7 +99,8 @@ public class NotifyController : ControllerBase
     /// <param name="sign">使用者簽章</param>
     /// <param name="groupId">群組編號</param>
     /// <param name="commonNotify">token 與 你要打的訊息</param>
-    /// <returns></returns>
+    /// <response code="200">發送成功</response>
+    /// <response code="400">發送失敗</response>
     [HttpPost("email/{sign}")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces("application/json")]
@@ -120,7 +124,8 @@ public class NotifyController : ControllerBase
     /// <param name="sign">使用者簽章</param>
     /// <param name="groupId">群組編號</param>
     /// <param name="commonNotify">token 與 你要打的訊息</param>
-    /// <returns></returns>
+    /// <response code="200">發送成功</response>
+    /// <response code="400">發送失敗</response>
     [HttpPost("someplace/{sign}")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces("application/json")]

@@ -11,7 +11,10 @@ public class HistoryController : ControllerBase
     /// <summary>
     /// 取得發送歷史
     /// </summary>
-    /// <returns></returns>
+    /// <param name="sign">使用者簽章</param>
+    /// <response code="200">取得歷史成功</response>
+    /// <response code="404">找不到你的歷史</response>
+    /// <response code="400">取得歷史失敗</response>
     [HttpGet("list/{sign}")]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DDResponse<List<History>>))]
