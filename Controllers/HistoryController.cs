@@ -18,21 +18,21 @@ public class HistoryController : ControllerBase
     [HttpGet("list/{sign}")]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DDResponse<List<History>>))]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponse))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
     public IActionResult ListHistory(string sign)
     {
         try
         {
             if (sign == "")
             {
-                return NotFound();
+                return NotFound(new ErrorResponse());
             }
             return Ok(new DDResponse<List<History>>(0, new List<History>()));
         }
         catch (Exception)
         {
-            return BadRequest();
+            return BadRequest(new ErrorResponse());
         }
 
     }

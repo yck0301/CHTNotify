@@ -20,22 +20,22 @@ public class MemberController : ControllerBase
     [HttpGet("list/{sign}/{groupId}")]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DDResponse<List<Member>>))]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponse))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
     public IActionResult ListMembers(string sign, string groupId)
     {
         try
         {
             if(sign == "")
             {
-                return NotFound();
+                return NotFound(new ErrorResponse());
             }
             DDResponse<List<Member>> resp = new DDResponse<List<Member>>(0, new List<Member>());
             return Ok(resp);
         }
         catch (Exception)
         {
-            return BadRequest();
+            return BadRequest(new ErrorResponse());
         }
 
     }
@@ -51,15 +51,15 @@ public class MemberController : ControllerBase
     [HttpPost("panel/{sign}/{groupId}")]
     [Produces("application/json")]
     [Consumes(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OkResponse))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
     public IActionResult AddMember(string sign, string groupId, Member? member)
     {
         if(member == null)
         {
-            return BadRequest(); 
+            return BadRequest(new ErrorResponse()); 
         }
-        return Ok();
+        return Ok(new OkResponse());
     }
 
     /// <summary>
@@ -73,15 +73,15 @@ public class MemberController : ControllerBase
     /// <response code="400">修改失敗</response>
     [HttpPatch("panel/{sign}/{groupId}/{memberId}")]
     [Consumes(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OkResponse))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
     public IActionResult EditMember(string sign, string groupId, string memberId, Member? member)
     {
         if(member == null)
         {
-            return BadRequest(); 
+            return BadRequest(new ErrorResponse()); 
         }
-        return Ok();
+        return Ok(new OkResponse());
     }
 
     /// <summary>
@@ -93,17 +93,17 @@ public class MemberController : ControllerBase
     /// <response code="200">刪除成功</response>
     /// <response code="400">刪除失敗</response>
     [HttpDelete("panel/{sign}/{groupId}/{memberId}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OkResponse))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
     public IActionResult DeleteMember(string sign, string groupId, string memberId)
     {
         try
         {
-            return Ok();
+            return Ok(new OkResponse());
         }
         catch(Exception)
         {
-            return BadRequest(); 
+            return BadRequest(new ErrorResponse()); 
         }
     }
 }

@@ -6,7 +6,7 @@ namespace CHTNotify.Controllers;
 [ApiController]
 [Route("v1/[controller]")]
 
-public class GroupController : ControllerBase
+public class MemberGroupController : ControllerBase
 {
 
     /// <summary>
@@ -17,22 +17,22 @@ public class GroupController : ControllerBase
     [HttpGet("list/{sign}")]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(DDResponse<List<Group>>))]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ErrorResponse))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
     public IActionResult ListGroups(string sign)
     {
         try
         {
             if(sign == "")
             {
-                return NotFound();
+                return NotFound(new ErrorResponse());
             }
             DDResponse<List<Group>> resp = new DDResponse<List<Group>>(0, new List<Group>());
             return Ok(resp);
         }
         catch (Exception)
         {
-            return BadRequest();
+            return BadRequest(new ErrorResponse());
         }
 
     }
@@ -47,15 +47,15 @@ public class GroupController : ControllerBase
     [HttpPost("panel/{sign}")]
     [Produces("application/json")]
     [Consumes(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OkResponse))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
     public IActionResult AddGroup(string sign, Group? group)
     {
         if(group == null)
         {
-            return BadRequest(); 
+            return BadRequest(new ErrorResponse()); 
         }
-        return Ok();
+        return Ok(new OkResponse());
     }
 
     /// <summary>
@@ -68,15 +68,15 @@ public class GroupController : ControllerBase
     /// <response code="400">修改失敗</response>
     [HttpPatch("panel/{sign}/{groupId}")]
     [Consumes(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OkResponse))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
     public IActionResult EditGroup(string sign, string groupId, Group? group)
     {
         if(group == null)
         {
-            return BadRequest(); 
+            return BadRequest(new ErrorResponse()); 
         }
-        return Ok();
+        return Ok(new OkResponse());
     }
 
     /// <summary>
@@ -87,17 +87,17 @@ public class GroupController : ControllerBase
     /// <response code="200">刪除成功</response>
     /// <response code="400">刪除失敗</response>
     [HttpDelete("panel/{sign}/{groupId}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OkResponse))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
     public IActionResult DeleteGroup(string sign, string groupId)
     {
         try
         {
-            return Ok();
+            return Ok(new OkResponse());
         }
         catch(Exception)
         {
-            return BadRequest(); 
+            return BadRequest(new ErrorResponse()); 
         }
     }
 }

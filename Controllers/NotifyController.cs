@@ -23,8 +23,8 @@ public class NotifyController : ControllerBase
     [HttpPost("line/{sign}")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces("application/json")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OkResponse))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
     public async Task<IActionResult> PostLineNotify(string sign, string groupId, CommonNotify commonNotify)
     {
         try
@@ -35,11 +35,11 @@ public class NotifyController : ControllerBase
             content.Add("message", commonNotify.message);
             HttpResponseMessage response = await httpClient.PostAsync("https://notify-api.line.me/api/notify", new FormUrlEncodedContent(content));
 
-            return Ok();
+            return Ok(new OkResponse());
         }
         catch(Exception)
         {
-            return BadRequest();
+            return BadRequest(new ErrorResponse());
         }
     }
 
@@ -54,17 +54,17 @@ public class NotifyController : ControllerBase
     [HttpPost("teams/{sign}")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces("application/json")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OkResponse))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
     public IActionResult PostTeamsNotify(string sign, string groupId, CommonNotify commonNotify)
     {
         try
         {
-            return Ok();
+            return Ok(new OkResponse());
         }
         catch(Exception)
         {
-            return BadRequest();
+            return BadRequest(new ErrorResponse());
         }
     }
 
@@ -79,17 +79,17 @@ public class NotifyController : ControllerBase
     [HttpPost("sms/{sign}")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces("application/json")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OkResponse))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
     public IActionResult PostSMSNotify(string sign, string groupId, CommonNotify commonNotify)
     {
         try
         {
-            return Ok();
+            return Ok(new OkResponse());
         }
         catch(Exception)
         {
-            return BadRequest();
+            return BadRequest(new ErrorResponse());
         }
     }
 
@@ -104,17 +104,17 @@ public class NotifyController : ControllerBase
     [HttpPost("email/{sign}")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces("application/json")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OkResponse))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
     public IActionResult PostEmailNotify(string sign, string groupId, CommonNotify commonNotify)
     {
         try
         {
-            return Ok();
+            return Ok(new OkResponse());
         }
         catch(Exception)
         {
-            return BadRequest();
+            return BadRequest(new ErrorResponse());
         }
     }
 
@@ -129,17 +129,17 @@ public class NotifyController : ControllerBase
     [HttpPost("someplace/{sign}")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces("application/json")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OkResponse))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ErrorResponse))]
     public IActionResult PostSomeplaceNotify(string sign, string groupId, CommonNotify commonNotify)
     {
         try
         {
-            return Ok();
+            return Ok(new OkResponse());
         }
         catch(Exception)
         {
-            return BadRequest();
+            return BadRequest(new ErrorResponse());
         }
     }
 }

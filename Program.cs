@@ -13,8 +13,8 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
-        Title = "滴滴告警 - 要你M3000",
-        Description = "滴滴告警 - 系統監控的好幫手，提供API讓你發送告警一次滿足，告警滴滴叫，叫好叫滿，種類繁多任君挑選。(Line, Teams, e-mail, SMS)"
+        Title = "要你處理",
+        Description = "要你處理 - 系統監控的好幫手，提供API讓你發送告警一次滿足，告警滴滴叫，叫好叫滿，種類繁多任君挑選。(Line, Teams, e-mail, SMS, 客製化系統)"
     });
 
     // using System.Reflection;
